@@ -1,16 +1,15 @@
 #********************************************************************
 # Ronan Phillips Johns                                              #
-# Last Edited: 30/01/2019                                           #
+# Last Edited: 31/01/2019                                           #
 # readUserInput.py                                                  #
 # This file reads the user inputed details, calls the method which  #
 # will read observations from the internet, and prints these        #
 # observations to the desired outputs.                              #
 #*******************************************************************#
 
-from observations import readInternet
-from observations import readInternetNoTime
-from display import printDataToScreen
-from display import printDataToFile
+from observations import readInternet, readInternetNoTime
+from display import printDataToScreen, printDataToFile
+from addToDictionary import addUTCColumn
 
 def readInput( results ):
     if results.RAMax != None and results.RAMin != None and results.DECMax != None and results.DECMin != None:
@@ -19,6 +18,8 @@ def readInput( results ):
         else:
             dictionary = readInternet( results.RAMin, results.RAMax, results.DECMin, results.DECMax, results.TIMEMin, results.TIMEMax, results.Duration )
         x = 1
+
+        dictionary = addUTCColumn( dictionary )
         if results.printToScreen != None:
             printDataToScreen( dictionary, x )
         if results.outfile != None:
