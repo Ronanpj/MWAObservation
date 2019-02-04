@@ -39,5 +39,6 @@ def addFurtherInformation( dictionary ):
             return
         dictionary[x].append(result["rfstreams"]["0"]["vsib_frequency"] * 1.28)
         dictionary[x].append(result["mode"])
+        dictionary[x].append(result["stoptime"] - result["starttime"])
     return dictionary
 
