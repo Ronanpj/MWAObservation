@@ -37,7 +37,7 @@ def addFurtherInformation( dictionary ):
         except urllib.request.URLError as error:
             print(" URL or network error: %s" % error.reason)
             return
-        print(result["rfstreams"]["0"]["vsib_frequency"])
-    
-    return 
+        dictionary[x].append(result["rfstreams"]["0"]["vsib_frequency"] * 1.28)
+        dictionary[x].append(result["mode"])
+    return dictionary
 
