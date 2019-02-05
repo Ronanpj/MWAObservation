@@ -1,6 +1,6 @@
 #*******************************************************************#
 # Ronan Phillips Johns                                              #
-# Last Edited: 01/02/2019                                           #
+# Last Edited: 05/02/2019                                           #
 # addToDictionary.py                                                #
 # This file facilitates the addition of columns to the current      #
 # dictionary of observations                                        #
@@ -33,12 +33,18 @@ def addFurtherInformation( dictionary ):
         except urllib.request.URLError as error:
             print("HTTP error from server: code = %d, response: \n %s" % (error.code, error.read()))
             return
-        
+       
         except urllib.request.URLError as error:
             print(" URL or network error: %s" % error.reason)
             return
+        
         dictionary[x].append(result["rfstreams"]["0"]["vsib_frequency"] * 1.28)
+        #Add frequency to the data
+
         dictionary[x].append(result["mode"])
+        #Add Correlation Mode to the data
+        
         dictionary[x].append(result["stoptime"] - result["starttime"])
+        #Add Duration to the data
     return dictionary
 

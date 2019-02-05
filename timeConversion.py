@@ -9,6 +9,7 @@
 from astropy.time import Time
 
 def GPStoUTC( GPSTime ):
+    #Used to convert GPS time to UTC time
     UTCTime = Time( GPSTime, format = 'gps')
     UTCTime = Time(UTCTime, format = 'iso')
     return UTCTime

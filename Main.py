@@ -1,6 +1,6 @@
 #********************************************************************#
 # Ronan Phillips Johns                                               #
-# Last Edited: 31/01/2019                                            #
+# Last Edited: 05/02/2019                                            #
 # Main.py                                                            #
 # This file facilitates the execution and running of the entire      #
 # program                                                            #
@@ -28,17 +28,14 @@ group1.add_argument('-i', dest = 'inputfile', action = 'store', help = 'input fi
 group1.add_argument('-p', dest = 'printToScreen', action = 'store', help = 'Print to screen or not. Enter yes if you do wish to print to screen', default = None)
 #Create argument for observations to be printed to screen or not
 
-group1.add_argument('-r', dest = 'RAMin', action = 'store', help = 'Minimum limit of the right ascension of the location', default = None)
-#Create argument for the minimum right ascension
+group1.add_argument('+r', dest = 'RA', action = 'store', help = 'The right ascension of the location', default = None)
+#Create argument for the right ascension
 
-group1.add_argument('+r', dest = 'RAMax', action = 'store', help = 'Maximum limit of the right ascension of the location', default = None)
-#Create argument for the maximum right ascension
+group1.add_argument('+d', dest = 'DEC', action = 'store', help = 'The declination of the location', default = None)
+#Create argument for the declination
 
-group1.add_argument('-d', dest = 'DECMin', action = 'store', help = 'Minimum limit of the declination of the location', default = None)
-#Create argument for the minimum declination
-
-group1.add_argument('+d', dest = 'DECMax', action = 'store', help = 'Maximum limit of the declination of the location', default = None)
-#Create argument for the maximum declination
+group1.add_argument('+R', dest = 'Radius', action = 'store', help = 'The radius of the location coordinates', default = None)
+#Create argument for the radius
 
 group1.add_argument('-t', dest = 'TIMEMin', action = 'store', help = 'Minimum limit of start time in GPS seconds', default = None)
 #Create argument for the minimum start time of observation

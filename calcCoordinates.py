@@ -1,6 +1,6 @@
 #********************************************************************
 # Ronan Phillips Johns                                              #
-# Last Edited: 04/02/2019                                           #
+# Last Edited: 05/02/2019                                           #
 # calcCoordinates.py                                                #
 # This file calculates the min and max right ascension and          #
 # declination from the right ascension, declination, and radius     #
@@ -10,35 +10,45 @@
 
 from astropy.coordinates import SkyCoord
 from astropy import units as u
-from math import pi as PI, cos
+from math import cos
 
 
 def calcMinMax( RA, DEC, radius ):
     coordinates = []
     #Used to hold the min and max right ascension and declination
-    
-    degreesOfArc = RA / cos( DEC )
 
-    RAMin = RA - degreesOfArc
-    RAMax = RA + degreesOfArc
-    
+    RAMin = RA - abs( radius / cos( DEC ) )
+    RAMax = RA + abs( radius / cos( DEC ) )
+
     DECMin = DEC - radius
     DECMax = DEC + radius
     
-    if RAMin < 0:
-        RAMin = RAMin + 360
+    while RAMin < 0 or RAMin > 360:
+        if RAMin < 0:
+            RAMin = RAMin + 360
+        if RAMin > 360:
+            raMin = RAMin - 360
 
-    if RAMax > 360:
-        RAMax = RAMax - 360
+    while RAMax < 0 or RAMax > 360:
+        if RAMax < 0:
+            RAMax = RAMax + 360
+        if RAMax > 360:
+            RAMax = RAMax - 360
 
-    if DECMin < 0:
-        DECMin = DECMin + 360
+    while DECMin < 0 or DECMin > 360:
+        if DECMin < 0:
+            DECMin = DECMin + 360
+        if DECMin > 360:
+            DECMin = DECMin - 360
 
-    if DECMax > 360:
-        DECMax = DECMax - 360
-
+    while DECMax < 0 or DECMax > 360:
+        if DECMax < 0:
+            DECMax = DECMax + 360
+        if DECMax > 360:
+            DECMax = DECMax - 360
     #The above code ensures the coordinates are within 0 and 360 degrees at all times
-
+    #print(RAMin)
+    #print(RAMax)
     coordinates.append( RAMin )
     coordinates.append( RAMax )
     coordinates.append( DECMin )
@@ -69,6 +79,9 @@ def checkSeperation( dictionary, RA, DEC, radius ):
             listOfIndexesToRemove.append(x)
             #Add the index number to the list which needs to be removed
 
+        else:
+            dictionary[x].append( initialCoord.position_angle(obsCoord).degree )
+
     for y in listOfIndexesToRemove:
         dictionary.pop(y)
         #Remove the index from the dictionary
@@ -78,4 +91,3 @@ def checkSeperation( dictionary, RA, DEC, radius ):
             #When the above index was removed, the entire dictionary length was reduced by one. This results in each index that needs to be removed also requiring to be reduced by 1, otherwise an index error will occur
 
     return dictionary
-
