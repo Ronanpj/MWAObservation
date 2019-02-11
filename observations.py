@@ -1,6 +1,6 @@
 #*******************************************************************#
 # Ronan Phillips Johns                                              #
-# Last Edited: 05/02/2019                                           #
+# Last Edited: 07/02/2019                                           #
 # observations.py                                                   #
 # This file reads the required information from the MWA internet    #
 # website, and returns this information to userInput.py. The two    #

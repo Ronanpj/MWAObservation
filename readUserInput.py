@@ -1,6 +1,6 @@
 #********************************************************************
 # Ronan Phillips Johns                                              #
-# Last Edited: 05/02/2019                                           #
+# Last Edited: 07/02/2019                                           #
 # readUserInput.py                                                  #
 # This file reads the user inputed details, calls the method which  #
 # will read observations from the internet, and prints these        #

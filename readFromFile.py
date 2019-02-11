@@ -1,6 +1,6 @@
 #*******************************************************************#
 # Ronan Phillips Johns                                              #
-# Last Edited: 05/02/2019                                           #
+# Last Edited: 07/02/2019                                           #
 # readFromFile.py                                                   #
 # This file will read information from file, and will print the     #
 # data to the screen and to file, if the user chooses, through the  #

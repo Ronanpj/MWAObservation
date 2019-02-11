@@ -1,6 +1,6 @@
 #*******************************************************************#
 # Ronan Phillips Johns                                              #
-# Last Edited: 31/01/2019                                           #
+# Last Edited: 07/02/2019                                           #
 # timeConversion.py                                                 #
 # This file contains all the time conversion methods needed for the #
 # program                                                           #
