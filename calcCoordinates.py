@@ -82,6 +82,7 @@ def checkSeperation( dictionary, RA, DEC, radius ):
 
         else:
             dictionary[x].append( sep )
+            #Display the offset from the pointing centre, in degrees
 
     for y in listOfIndexesToRemove:
         dictionary.pop(y)

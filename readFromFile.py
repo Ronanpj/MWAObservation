@@ -36,7 +36,6 @@ def readFile( results ):
             return
         x = 0
         #x represents the star number - used to make output more appealing
-        #try:
         for i in range(0, count - 1):
             coordinates = calcMinMax( data["RA"][i], data["DEC"][i], data["Radius"][i] )
             x = i + 1
@@ -64,5 +63,3 @@ def readFile( results ):
             if results.outfile != None:
             #Print to file
                 printDataToFile( dictionary, results.outfile, x )
-        #except:
-            #print("\nError\n")

@@ -36,14 +36,14 @@ def readInput( results ):
         x = 1
         #x is used to represent the star number - for output readability
 
-        dictionary = checkSeperation( dictionary, int(results.RA), int(results.DEC), int(results.Radius) )
-        #Filter all the observations which are outside of the radius of the star
-
         dictionary = addUTCColumn( dictionary )
         #Add time to the list of details for each star
 
         dictionary = addFurtherInformation( dictionary )
         #Add further information to the data such as frequency and correlation mode
+
+        dictionary = checkSeperation( dictionary, int(results.RA), int(results.DEC), int(results.Radius) )
+        #Filter all the observations which are outside of the radius of the star
 
         if results.printToScreen != None:
             #Execute if the user wishes to print to screen
