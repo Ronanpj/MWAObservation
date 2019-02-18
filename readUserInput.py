@@ -33,9 +33,6 @@ def readInput( results ):
             dictionary = readInternet( coordinates[0], coordinates[1], coordinates[2], coordinates[3], results.TIMEMin, results.TIMEMax, results.Duration )
             #dictionary holds all information on the current observation
 
-        x = 1
-        #x is used to represent the star number - for output readability
-
         dictionary = addUTCColumn( dictionary )
         #Add time to the list of details for each star
 
@@ -47,11 +44,11 @@ def readInput( results ):
 
         if results.printToScreen != None:
             #Execute if the user wishes to print to screen
-            printDataToScreen( dictionary, x )
+            printDataToScreen( dictionary, results.starName )
 
         if results.outfile != None:
             #Execute if the user wishes to print to file
-            printDataToFile( dictionary, results.outfile, x )
+            printDataToFile( dictionary, results.outfile, results.starName )
 
     else:
         if results.inputfile == None:

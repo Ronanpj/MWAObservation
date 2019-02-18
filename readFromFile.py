@@ -22,44 +22,53 @@ def readFile( results ):
             data = ascii.read(results.inputfile)
             #data contains the contents of the file
             
-            wordList = (open(results.inputfile).readline()).split(" ")
+            wordList = (open(results.inputfile).readline()).split()
             #wordList represents the first line of the file, and is used to determine if the file contains details on the time of the observation, or just the location
             
-            stringCount = len(wordList)
-            #stringCount represents the number of headings in the file, and thus the details about the star(s) contained in the file
+            time = "no"
+            for i in range(0, len(wordList)):
+                if wordList[i] == "minTime":
+                    time = "yes"
             
             count = len(open(results.inputfile).readlines())
             #count determines the number of locations the user wants to check for in the MWA database
         
-        except:
-            print("\nError - could not read file correctly\n")
+        except Exception as e:
+            print(e)
+            
             return
-        x = 0
-        #x represents the star number - used to make output more appealing
+        
         for i in range(0, count - 1):
             coordinates = calcMinMax( data["RA"][i], data["DEC"][i], data["Radius"][i] )
             x = i + 1
             #Increase the star number each time the loop is iterated - each time a new location/time is checked for observation
-            if stringCount < 6:
+            if time == "no":
             #Only execute if time details are not included
                 dictionary = readInternetNoTime( coordinates[0], coordinates[1], coordinates[2], coordinates[3] )
             else:
         #Execute if time details are included
+                
                 dictionary = readInternet( coordinates[0], coordinates[1], coordinates[2], coordinates[3] , data["minTime"][i], data["maxTime"][i], data["duration"][i] )
-              
-            dictionary = addUTCColumn( dictionary )
-            #This adds a UTC time column to the data
+            if dictionary != None:
+                
+                dictionary = addUTCColumn( dictionary )
+                #This adds a UTC time column to the data
            
-            dictionary = addFurtherInformation( dictionary )
-            #Add further information to the dictionary
+                dictionary = addFurtherInformation( dictionary )
+                #Add further information to the dictionary
 
-            dictionary = checkSeperation( dictionary, data["RA"][i], data["DEC"][i], data["Radius"][i] )
-
-
-            if results.printToScreen != None:
-            #Print to screen 
-                printDataToScreen( dictionary, x )
+                dictionary = checkSeperation( dictionary, data["RA"][i], data["DEC"][i], data["Radius"][i] )
+                #Filter all observations which are outside of the primary beam
+                
+                starName = data["starName"][i]
+                
+                if results.printToScreen != None:
+                #Print to screen 
+                    printDataToScreen( dictionary, starName )
            
-            if results.outfile != None:
-            #Print to file
-                printDataToFile( dictionary, results.outfile, x )
+                if results.outfile != None:
+                #Print to file
+                    printDataToFile( dictionary, results.outfile, starName )
+
+            else:
+                print("\nError - 'dictionary' has not been filled properly")

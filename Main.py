@@ -1,6 +1,6 @@
 #********************************************************************#
 # Ronan Phillips Johns                                               #
-# Last Edited: 07/02/2019                                            #
+# Last Edited: 18/02/2019                                            #
 # Main.py                                                            #
 # This file facilitates the execution and running of the entire      #
 # program                                                            #
@@ -46,6 +46,8 @@ group1.add_argument('+t', dest = 'TIMEMax', action = 'store', help = 'Maximum li
 group1.add_argument('-l', dest = 'Duration', action = 'store', help = 'Duration of observation', default = None)
 #Create argument for the duration of observation
 
+group1.add_argument('-N', dest = "starName", action = "store", help = "Name of the star", default = None)
+#Create argument for the star name
 
 
 results = parser.parse_args()
@@ -57,8 +59,15 @@ if len(sys.argv) <= 1:
     parser.print_help()
     sys.exit()
 
-readFile( results )
-#This will check if the user has chosen to read from file, and will do so if desired
+try:
+    readFile( results )
+    #This will check if the user has chosen to read from file, and will do so if desired
 
-readInput( results )
-#This will check if the user has chosen to read from the command line, and will do so if desired
+except Exception as e:
+    print(e)
+
+try:
+    readInput( results )
+    #This will check if the user has chosen to read from the command line, and will do so if desired
+except Exception as e:
+    print(e)

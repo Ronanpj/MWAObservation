@@ -15,13 +15,12 @@ import json
 
 
 def readInternet( minRa, maxRa, minDec, maxDec, minTime, maxTime, duration ):
-    BASEURL = 'http://mwa-metadata01.pawsey.org.au/metadata/find'
+    BASEURL = 'http://mwa-metadata01.pawsey.org.au/metadata/find/?'
     #'BASEURL' is part of the URL for the MWA data base which is used no matter which variables are entered
     
     try:
-        result = json.load(urllib.request.urlopen(BASEURL + '?' + '/' + 'minra=' + str(minRa) + '&maxra=' + str(maxRa) + '&mindec=' + str(minDec) + '&maxdec=' + str(maxDec) + '&mintime=' + str(minTime) + '&maxtime=' + str(maxTime) + '&minduration=' + str(duration) + '&pagesize=200'))
+        result = json.load(urllib.request.urlopen(BASEURL + '&minra=' + str(minRa) + '&maxra=' + str(maxRa) + '&mindec=' + str(minDec) + '&maxdec=' + str(maxDec) + '&mintime=' + str(minTime) + '&maxtime=' + str(maxTime) + '&minduration=' + str(duration) + '&pagesize=200'))
         #This opens the data base and extracts the required observations
-    
     except urllib.request.URLError as error:
         print("HTTP error from server: code = %d, response: \n %s" % (error.code, error.read()))
         return
@@ -33,7 +32,7 @@ def readInternet( minRa, maxRa, minDec, maxDec, minTime, maxTime, duration ):
 
 
 def readInternetNoTime( minRa, maxRa, minDec, maxDec ):
-    BASEURL = 'http://mwa-metadata01.pawsey.org.au/metadata/find/?search=search'
+    BASEURL = 'http://mwa-metadata01.pawsey.org.au/metadata/find?'
     #'BASEURL' is part of the URL for the MWA data base which is used no matter which variables are entered
     
     try:
