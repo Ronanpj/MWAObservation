@@ -16,7 +16,7 @@ Always enter a name for the query - if it is a star, use the star's name, if you
 
 
 ## Examples
-''' 
+
          python3 Main.py -o output.csv -i data.csv
 		This will read from file, and print to file
 
@@ -31,7 +31,7 @@ Always enter a name for the query - if it is a star, use the star's name, if you
 
 	  python3 Main.py -p yes -r 164 +r 165 -d 7 +d 8 -t 1093589775 +t 1093589777 -l 240 -N moon
 		This will print all observations of that location within the specified time to screen
-'''
+
 
 
 
@@ -70,7 +70,7 @@ Command arguments:
     • ‘-N’ defines the name of the star
 
 Examples:
-'''
+
     • python3 Main.py -o output.txt -p yes -i data.txt
       This reads from the file data.txt, and prints to the file output.txt and prints to terminal screen
       
@@ -79,7 +79,7 @@ Examples:
       
     • python3 Main.py -p yes -i data.txt +r 165 +d 8 +R 3  -N unknown
       This reads from the file data.txt and from the command line, with the command line query being of an unknown star name, and prints all data to terminal screen 
-'''
+
 
 
 ## Input File Requirements
@@ -95,21 +95,20 @@ The input file must be formatted to have the correct headings, otherwise the pro
       
 Any changes in spelling, grammar, or case to these headings will result in a file read error. The order in which the columns are listed, and the space between column headings, does not matter – ensure that each line is a separate query, that each column contains only one type of information, and that the information beneath each column heading is neat and orderly, and the program will read the file correctly. Duration must be an integer, not a decimal value, otherwise the program will not return a correct result. If copy pasting information from a spreadsheet into a text file, you do not need to modify the data once it has been pasted – the program will read it as is. Ensure no empty lines are present at the bottom of the file, as this will result in a file read error. You must always enter a star name for each query – if the name of the star is unknown, simply enter ‘unknown’ for that query. Below are two crude examples of correctly formatted input files.
 
-'''
+
 RA    DEC    Radius    starName
 164    8              10       unknown
  23     100           3        moon
  359    57            1        blue star
  6        19             5       unknown
-'''
 
-'''
+
 RA    DEC    Radius    minTime    maxTime    duration    starName
 164    8          10          23               24                240           unknown
  23     100       3           1034           1036            8		 moon
  359    57        1            49               99               103		 blue star
  6        19         5           10235         10236          999	  	 unknown
-'''
+
 
 ## Displayed Help Message
 
