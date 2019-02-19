@@ -122,15 +122,24 @@ optional arguments:
   -h, --help        show this help message and exit
 
   -o OUTFILE                 output filename
+
   -i INPUTFILE               input filename
+
   -p PRINTTOSCREEN  Print to screen or not. Enter yes if you do wish to print
                     to screen
+
   +r RA                             The right ascension of the location
+
   +d DEC                          The declination of the location
+
   +R RADIUS                   The radius of the location coordinates
+
   -t TIMEMIN                   Minimum limit of start time in GPS seconds
+
   +t TIMEMAX                 Maximum limit of start time in GPS seconds
+
   -l DURATION                Duration of observation
+
   -N STARNAME             Name of the star
 
 When entering time and location details on the command line, you must do
