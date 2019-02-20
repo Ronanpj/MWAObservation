@@ -2,40 +2,7 @@
 
 Author: Ronan Phillips Johns
 
-## Purpose
-This program is designed to read, from file and or from the command line, a list of observation queries. These queries contain information regarding the location of one or more stars (in right ascension and declination), the time and duration of the desired observation of these star(s) (In GPS seconds and seconds respectively), and the name of the star(s). The program imports this information to the database of the MWA telescope, which returns a list of observations which correspond to the queries, in JSON format. The program then collects further information from a second MWA database using the obsID of each observation, before parsing the data into a human readable table. 
-
-
-##Running The Program
-To run the program, a number of command line parameters must be used. Simply running the program without command arguments (python3 Main.py) will result in a help message being displayed. To read queries from file, use the argument -i followed by the file name (eg. python3 Main.py -i data.csv). To read star information from the command line, use the arguments +r (right ascension), +d (declination), +R (radius), -t (minimum start time), +t (maximum start time), and -l (duration). The time details are not essential - if they are not entered, the program will display all observations of the desired location. To display the observation information to screen, use the argument -p followed by yes (eg python3 Main.py -p yes -i data.txt). To output the observation information to file, use the argument -o followed by the file name (eg. python3 Main.py -o output.csv -i data.txt).
-
-
-When reading information from file or from the command line, ensure the duration variable does not contain any decimal values - the database only accepts integer values.
-
-Always enter a name for the query - if it is a star, use the star's name, if you do not know the name of the location simply enter 'unknown'
-
-
-## Examples
-
-         python3 Main.py -o output.csv -i data.csv
-		This will read from file, and print to file
-
-          python3 Main.py -p yes -i data.csv
-		This will read from file, and print to screen
-
-          python3 main.py -o output.csv -p yes -i data.csv
-		This will read from file, print to file, and print to screen
-
-	  python3 Main.py -o output.csv -r 164 +r 165 -d 7 +d 8 -N unknown
-		This will display all observations of the location entered  
-
-	  python3 Main.py -p yes -r 164 +r 165 -d 7 +d 8 -t 1093589775 +t 1093589777 -l 240 -N moon
-		This will print all observations of that location within the specified time to screen
-
-
-
-
-# Overview
+## Overview
 
 The aim of this program is to automate the searching for large numbers of observations from the MWA database. The program can read large numbers of observation queries at once, and return all the observations from the database which correspond to these queries. Any errors in the file are accounted for, and any queries which do not correspond with MWA observations are ignored. Location details must always be entered for each query, while time details are optional.
 
