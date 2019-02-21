@@ -69,7 +69,12 @@ Any changes in spelling, grammar, or case to these headings will result in a fil
  23  | 100 | 3     |  moon
  359 | 57  | 1     |  blue star
  6   | 19  | 5     |  unknown
-
+ 
+ minRA | maxRA | minDec | maxDec  | starName  
+ ------|-------|--------|---------|---------
+ 160   | 170   | 7      | 8       | unknown
+ 20    | 25    | 99     | 101     | moon
+ 358   | 360   | 56     | 57      | blue star
 
  RA  | DEC | Radius | minTime | maxTime | duration | starName
 -----|-----|--------|---------|---------|----------|---------
@@ -201,7 +206,7 @@ observations.py
 ReadFromFile.py
 
     1. readFile( results )
-       This function reads the input file, and collects all the necessary details before outputting the information to other files. At the beginning of the function, the program checks if the user wishes to read from file or not. If not, the function finishes. Otherwise the function reads the file using ascii, and stores the information in ‘data’. It then creates the variable ‘wordList’ which reads the first line, and splits it whenever it finds whitespace. The variable ‘stringCount’ is then set to the length of ‘wordList’. This is done so that the program can determine whether time details have been entered in the file or not. The function then counts the number of lines in the file so that it knows how many times to iterate the for loop later in the function. If the file could not be read properly, the function exits. The function then loops the same number of times as the number of lines contained in the file – each line represents a separate query, thus each line must be dealt with separately. The function calls calcMinMax() so as to obtain the coordinates in minimum and maximum, and then calls either readInternet() or readInternetNoTime() depending on whether time details are used in the file or not. The function then calls addUTCColumn(), addFurtherInformation(), and checkSeperation(), to add extra details to each observation, and filter all observations which are outside of the primary beam. If the user wishes for the information to be printed to screen, the function will call printDataToScreen(), and if the user wishes to print to file, the function calls printDataToFile().
+       This function reads the input file, and collects all the necessary details before outputting the information to other files. At the beginning of the function, the program checks if the user wishes to read from file or not. If not, the function finishes. Otherwise the function reads the file using astropy.table, and stores the information in ‘data’. It then creates the variable ‘wordList’ which reads and storesthe first line. ‘wordList’ is used to determine which information is contained in the file. The function creates all the new headings required in the table, and then counts the number of lines in the file so that it knows how many times to iterate the for loop later in the function. If the file could not be read properly, the function exits. The function then loops the same number of times as the number of lines contained in the file – each line represents a separate query, thus each line must be dealt with separately. The function calls calcMinMax() so as to obtain the coordinates in minimum and maximum, and then calls either readInternet() or readInternetNoTime() depending on whether time details are used in the file or not. The function then calls addUTCColumn(), addFurtherInformation(), and checkSeperation(), to add extra details to each observation, and filter all observations which are outside of the primary beam. If the user wishes for the information to be printed to screen, the function will call printDataToScreen(), and if the user wishes to print to file, the function calls printDataToFile(). The function stores each observation returned from the internet search in the list called 'listToHoldObservations'. This is done so that the file output can be completed once the entire input file has been completely read. Once the input file has been read, the function adds a line to the table contained in 'data' for each observation that is returned from the query search, and places the observation on the same line as its respective query. 
        Variables:
             ▪ results – This holds all the command line arguments entered by the user
             ▪ data – This hold all the information read from the input file
@@ -211,7 +216,12 @@ ReadFromFile.py
             ▪ x – This represents the star number, ie the iteration number add 1. It is used to format the output of the observations
             ▪ coordinates – This is a list which holds the minimum and maximum right ascension and declination. It is used for calling the readInternet functions
             ▪ dictionary – This is a list, which contains a dictionary in each index, each of which contain all the observations returned from each query contained in the input file. The list is recreated each time the for loop is iterated, thus contains only the details for one query at a time
-               
+            ▪ listToHoldObservations - This is a list which holds each observation returned from the internet search. it is used to create the output file later in the function
+	    ▪ observationLineNumber - This is a list which holds the line number on the input file which each observation returned from the internet corresponds to
+	    ▪ listOfLines - This is a list which holds all all the line numbers in the output file which have observations on them
+	    ▪ numberOfRowsToAdd - This represents the number of rows which need to be added to the output file
+	    ▪ rowToAdd - This represents the row which needs to be added to the file - each observation has the query details which correspond to it on the same line
+	    ▪ correction - This allows the function to know if the line has an observation on it or not - if it doesnt, the function will clear that line of everything but the initial query
 
 
 readUserInput.py
