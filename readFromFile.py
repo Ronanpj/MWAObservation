@@ -12,12 +12,15 @@ from observations import readInternet, readInternetNoTime
 from display import printDataToScreen, printDataToFile
 from calcCoordinates import calcMinMax, checkSeperation
 from addToDictionary import addUTCColumn, addFurtherInformation
+import warnings
 import numpy as np
 import csv
 
 
 def readFile( results ):
     
+    warnings.filterwarnings("ignore")
+
     if results.inputfile != None:
         #Execute only if the user wishes to read info from file
         
@@ -31,17 +34,17 @@ def readFile( results ):
             count = len(open(results.inputfile).readlines())
             #count determines the number of locations the user wants to check for in the MWA database
             
-            obsID = Column(np.arange(count - 1), name = 'Observation ID', dtype = str)
-            obsName = Column(np.arange(count - 1), name = 'Observation Name', dtype = str)
+            obsID = Column(np.arange(count - 1), name = 'ObservationID', dtype = int)
+            obsName = Column(np.arange(count - 1), name = 'ObservationName', dtype = str)
             Creator = Column(np.arange(count - 1), name = 'Creator', dtype = str)
-            projectID = Column(np.arange(count - 1), name = 'Project ID', dtype = str)
-            RA = Column(np.arange(count - 1), name = 'Right Ascension', dtype = str)
-            DEC = Column(np.arange(count - 1), name = 'Declination', dtype = str)
-            startTime = Column(np.arange(count - 1), name = 'Start Time (UTC)', dtype = object)
-            Frequency = Column(np.arange(count - 1), name = 'Frequency (MHz)', dtype = str)
-            mode = Column(np.arange(count - 1), name = 'Correlation Mode', dtype = str)
-            duration = Column(np.arange(count - 1), name = 'Duration (sec)', dtype = str)
-            Offset = Column(np.arange(count - 1), name = 'Offset From Pointing Centre', dtype = str)
+            projectID = Column(np.arange(count - 1), name = 'ProjectID', dtype = str)
+            RA = Column(np.arange(count - 1), name = 'RightAscension', dtype = float)
+            DEC = Column(np.arange(count - 1), name = 'Declination', dtype = float)
+            startTime = Column(np.arange(count - 1), name = 'StartTime(UTC)', dtype = str)
+            Frequency = Column(np.arange(count - 1), name = 'Frequency(MHz)', dtype = str)
+            mode = Column(np.arange(count - 1), name = 'CorrelationMode', dtype = str)
+            duration = Column(np.arange(count - 1), name = 'Duration(sec)', dtype = int)
+            Offset = Column(np.arange(count - 1), name = 'OffsetFromPointingCentre', dtype = str)
             
             data.add_column(obsID)
             data.add_column(obsName)
@@ -118,17 +121,17 @@ def readFile( results ):
                     data.insert_row(observationLineNumber[i], rowToAdd)
                 
                 for j in range(0, numberOfRowsToAdd - 1):
-                    data['Observation ID'][observationLineNumber[i] + j] = str( listToHoldObservations[i][j][0] )
-                    data['Observation Name'][observationLineNumber[i] + j] = str( listToHoldObservations[i][j][1] )
+                    data['ObservationID'][observationLineNumber[i] + j] = int( listToHoldObservations[i][j][0] )
+                    data['ObservationName'][observationLineNumber[i] + j] = str( listToHoldObservations[i][j][1] )
                     data['Creator'][observationLineNumber[i] + j] = str( listToHoldObservations[i][j][2] )
-                    data['Project ID'][observationLineNumber[i] + j] = str( listToHoldObservations[i][j][3] )
-                    data['Right Ascension'][observationLineNumber[i] + j] = str( listToHoldObservations[i][j][4] )
-                    data['Declination'][observationLineNumber[i] + j] = str( listToHoldObservations[i][j][5] )
-                    data['Start Time (UTC)'][observationLineNumber[i] + j] = str( listToHoldObservations[i][j][6] )
-                    data['Frequency (MHz)'][observationLineNumber[i] + j] = str( listToHoldObservations[i][j][7] )
-                    data['Correlation Mode'][observationLineNumber[i] + j] = str( listToHoldObservations[i][j][8] )
-                    data['Duration (sec)'][observationLineNumber[i] + j] = str( listToHoldObservations[i][j][9] )
-                    data['Offset From Pointing Centre'][observationLineNumber[i] + j] = listToHoldObservations[i][j][10] 
+                    data['ProjectID'][observationLineNumber[i] + j] = str( listToHoldObservations[i][j][3] )
+                    data['RightAscension'][observationLineNumber[i] + j] = float( listToHoldObservations[i][j][4] )
+                    data['Declination'][observationLineNumber[i] + j] = float( listToHoldObservations[i][j][5] )
+                    data['StartTime(UTC)'][observationLineNumber[i] + j] = str( listToHoldObservations[i][j][6] )
+                    data['Frequency(MHz)'][observationLineNumber[i] + j] = str( listToHoldObservations[i][j][7] )
+                    data['CorrelationMode'][observationLineNumber[i] + j] = str( listToHoldObservations[i][j][8] )
+                    data['Duration(sec)'][observationLineNumber[i] + j] = int( listToHoldObservations[i][j][9] )
+                    data['OffsetFromPointingCentre'][observationLineNumber[i] + j] = listToHoldObservations[i][j][10] 
                     listOfLines.append(j + observationLineNumber[i])   
             
             count = len(data["RA"])
@@ -143,16 +146,16 @@ def readFile( results ):
                         correction = "No"
                 
                 if correction == "Yes":
-                    data['Observation ID'][i] = ""
-                    data['Observation Name'][i] = ""
-                    data['Creator'][i] = ""
-                    data['Project ID'][i] = ""
-                    data['Right Ascension'][i] = ""
-                    data['Declination'][i] = ""
-                    data['Start Time (UTC)'][i] = ""
-                    data['Frequency (MHz)'][i] = ""
-                    data['Correlation Mode'][i] = ""
-                    data['Duration (sec)'][i] = ""
-                    data['Offset From Pointing Centre'][i] = ""
+                    data['ObservationID'][i] = 0
+                    data['ObservationName'][i] = "0"
+                    data['Creator'][i] = "0"
+                    data['ProjectID'][i] = "0"
+                    data['RightAscension'][i] = 0
+                    data['Declination'][i] = 0
+                    data['StartTime(UTC)'][i] = "0"
+                    data['Frequency(MHz)'][i] = "0"
+                    data['CorrelationMode'][i] = "0"
+                    data['Duration(sec)'][i] = 0
+                    data['OffsetFromPointingCentre'][i] = "0"
 
             printDataToFile( data, results.outfile )
