@@ -44,7 +44,8 @@ def readFile( results ):
             Frequency = Column(np.arange(count - 1), name = 'Frequency(MHz)', dtype = str)
             mode = Column(np.arange(count - 1), name = 'CorrelationMode', dtype = str)
             duration = Column(np.arange(count - 1), name = 'Duration(sec)', dtype = int)
-            Offset = Column(np.arange(count - 1), name = 'OffsetFromPointingCentre', dtype = str)
+            if ("minRA" not in wordList) and ("maxRA" not in wordList) and ("minDEC" not in wordList) and ("maxDEC" not in wordList):
+                Offset = Column(np.arange(count - 1), name = 'OffsetFromPointingCentre', dtype = str)
             
             data.add_column(obsID)
             data.add_column(obsName)
@@ -56,7 +57,8 @@ def readFile( results ):
             data.add_column(Frequency)
             data.add_column(mode)
             data.add_column(duration)
-            data.add_column(Offset)
+            if ("minRA" not in wordList) and ("maxRA" not in wordList) and ("minDEC" not in wordList) and ("maxDEC" not in wordList):
+                data.add_column(Offset)
 
             listToHoldObservations = []
             observationLineNumber = []
@@ -68,7 +70,13 @@ def readFile( results ):
         
 
         for i in range(0, count - 1):
-            coordinates = calcMinMax( data["RA"][i], data["DEC"][i], data["Radius"][i] )
+
+            if ("minRA" in wordList) and ("maxRA" in wordList) and ("minDEC" in wordList) and ("maxDEC" in wordList):
+                coordinates = [data["minRA"][i], data["maxRA"][i], data["minDEC"][i], data["maxDEC"][i]]
+
+            else:
+                coordinates = calcMinMax( data["RA"][i], data["DEC"][i], data["Radius"][i] )
+            
             x = i + 1
             #Increase the star number each time the loop is iterated - each time a new location/time is checked for observation
             
@@ -87,14 +95,17 @@ def readFile( results ):
                 #This adds a UTC time column to the data
                 dictionary = addFurtherInformation( dictionary )
                 #Add further information to the dictionary
-                dictionary = checkSeperation( dictionary, data["RA"][i], data["DEC"][i], data["Radius"][i] )
+                
+                if ("minRA" not in wordList) and ("maxRA" not in wordList) and ("minDEC" not in wordList) and ("maxDEC" not in wordList):
+                    dictionary = checkSeperation( dictionary, data["RA"][i], data["DEC"][i], data["Radius"][i] )
+                
                 #Filter all observations which are outside of the primary beam
                 starName = data["starName"][i]
                 
                 
                 if results.printToScreen != None:
                 #Print to screen 
-                    printDataToScreen( dictionary, starName )
+                    printDataToScreen( dictionary, starName, wordList )
  
 
                 if len(dictionary) != 0:
@@ -131,7 +142,8 @@ def readFile( results ):
                     data['Frequency(MHz)'][observationLineNumber[i] + j] = str( listToHoldObservations[i][j][7] )
                     data['CorrelationMode'][observationLineNumber[i] + j] = str( listToHoldObservations[i][j][8] )
                     data['Duration(sec)'][observationLineNumber[i] + j] = int( listToHoldObservations[i][j][9] )
-                    data['OffsetFromPointingCentre'][observationLineNumber[i] + j] = listToHoldObservations[i][j][10] 
+                    if ("minRA" not in wordList) and ("maxRA" not in wordList) and ("minDEC" not in wordList) and ("maxDEC" not in wordList):
+                        data['OffsetFromPointingCentre'][observationLineNumber[i] + j] = listToHoldObservations[i][j][10] 
                     listOfLines.append(j + observationLineNumber[i])   
             
             count = len(data["RA"])
@@ -156,6 +168,7 @@ def readFile( results ):
                     data['Frequency(MHz)'][i] = "0"
                     data['CorrelationMode'][i] = "0"
                     data['Duration(sec)'][i] = 0
-                    data['OffsetFromPointingCentre'][i] = "0"
-
+                    if ("minRA" not in wordList) and ("maxRA" not in wordList) and ("minDEC" not in wordList) and ("maxDEC" not in wordList):
+                        data['OffsetFromPointingCentre'][i] = "0"
+    
             printDataToFile( data, results.outfile )
