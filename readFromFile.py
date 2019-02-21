@@ -68,7 +68,7 @@ def readFile( results ):
             print(e)
             return
         
-
+        
         for i in range(0, count - 1):
 
             if ("minRA" in wordList) and ("maxRA" in wordList) and ("minDEC" in wordList) and ("maxDEC" in wordList):
@@ -125,13 +125,14 @@ def readFile( results ):
 
             for i in range(0, len(listToHoldObservations)):
                 
-                numberOfRowsToAdd = len(listToHoldObservations[i])
+                numberOfRowsToAdd = 0
                 rowToAdd = data[observationLineNumber[i]]
                 
-                for j in range(observationLineNumber[i], count - 1):
+                for j in range(0, len(listToHoldObservations[i])):
                     data.insert_row(observationLineNumber[i], rowToAdd)
-                
-                for j in range(0, numberOfRowsToAdd - 1):
+                    numberOfRowsToAdd = numberOfRowsToAdd + 1
+                    
+                for j in range(0, numberOfRowsToAdd):
                     data['ObservationID'][observationLineNumber[i] + j] = int( listToHoldObservations[i][j][0] )
                     data['ObservationName'][observationLineNumber[i] + j] = str( listToHoldObservations[i][j][1] )
                     data['Creator'][observationLineNumber[i] + j] = str( listToHoldObservations[i][j][2] )
@@ -146,8 +147,11 @@ def readFile( results ):
                         data['OffsetFromPointingCentre'][observationLineNumber[i] + j] = listToHoldObservations[i][j][10] 
                     listOfLines.append(j + observationLineNumber[i])   
             
-            count = len(data["RA"])
-            
+            if ("minRA" not in wordList) and ("maxRA" not in wordList) and ("minDEC" not in wordList) and ("maxDEC" not in wordList):
+                count = len(data["RA"])
+            else:
+                count = len(data["minRA"])
+
             for i in range(0, count):
                 
                 correction = "Yes"
