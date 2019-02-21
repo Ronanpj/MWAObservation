@@ -64,6 +64,7 @@ Any changes in spelling, grammar, or case to these headings will result in a fil
 
 
  RA  | DEC | Radius | starName
+-----|-----|--------|---------
  164 | 8   | 10    | unknown
  23  | 100 | 3     |  moon
  359 | 57  | 1     |  blue star
@@ -71,6 +72,7 @@ Any changes in spelling, grammar, or case to these headings will result in a fil
 
 
  RA  | DEC | Radius | minTime | maxTime | duration | starName
+-----|-----|--------|---------|---------|----------|---------
  164 | 8   | 10     | 23      | 24      | 240      | unknown
  23  | 100 | 3      | 1034    | 1036    | 8	   | moon
  359 | 57  | 1      | 49      | 99      | 103	   | blue star
