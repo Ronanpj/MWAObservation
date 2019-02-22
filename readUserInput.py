@@ -66,7 +66,7 @@ def readInput( results ):
                 headings.append( Column(np.arange(len(dictionary)), name = 'DEC', dtype = float) )
                 headings.append( Column(np.arange(len(dictionary)), name = 'Radius', dtype = float) )
     
-            elif results.minRa != None:
+            elif results.minRA != None:
                 headings.append( Column(np.arange(len(dictionary)), name = 'minRA', dtype = float) )
                 headings.append( Column(np.arange(len(dictionary)), name = 'maxRA', dtype = float) )
                 headings.append( Column(np.arange(len(dictionary)), name = 'minDEC', dtype = float) )
