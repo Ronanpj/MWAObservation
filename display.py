@@ -12,7 +12,7 @@ from astropy.table import Table
 
 def printDataToScreen( data, x, wordList ):
     
-    print("\n\nStar Name: %s \n" % x)
+    print("\n\nName: %s \n" % x)
     if ("minRA" in wordList) and ("maxRA" in wordList) and ("minDEC" in wordList) and ("maxDEC" in wordList):
         print(tabulate(data, headers = ["Observation ID", "Observation Name", "Creator", "Project ID", "Right Ascension", "Declination", "Start Time (UTC)", "Frequency (MHz)", "Correlation Mode", "Duration (sec)"]))
     else:

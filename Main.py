@@ -40,6 +40,14 @@ group1.add_argument('-l', dest = 'Duration', action = 'store', help = 'Duration 
 #Create argument for the duration of observation
 group1.add_argument('-N', dest = "starName", action = "store", help = "Name of the star", default = None)
 #Create argument for the star name
+group1.add_argument('+rMin', dest = 'minRA', action = 'store', help = 'Minimum right ascension of location', default = None)
+#Create argument for minimum RA of location
+group1.add_argument('+rMax', dest = 'maxRA', action = 'store', help = 'Maximum right ascension of location', default = None)
+#Create argument for maximum RA of location
+group1.add_argument('+dMin', dest = 'minDEC', action = 'store', help = 'Minimum declination of location', default = None)
+#Create argument for minimum DEC of location
+group1.add_argument('+dMax', dest = 'maxDEC', action = 'store', help = 'Maximum declination of location', default = None)
+#Create argument for maximum DEC of location
 
 
 results = parser.parse_args()
@@ -55,9 +63,9 @@ if len(sys.argv) <= 1:
 readFile( results )
 #This will check if the user has chosen to read from file, and will do so if desired
 
-try:
-    readInput( results )
-    #This will check if the user has chosen to read from the command line, and will do so if desired
 
-except Exception as e:
-    print(e)
+readInput( results )
+#This will check if the user has chosen to read from the command line, and will do so if desired
+
+
+
