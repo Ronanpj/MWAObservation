@@ -1,6 +1,6 @@
 #********************************************************************
 # Ronan Phillips Johns                                              #
-# Last Edited: 19/02/2019                                           #
+# Last Edited: 22/02/2019                                           #
 # calcCoordinates.py                                                #
 # This file calculates the min and max right ascension and          #
 # declination from the right ascension, declination, and radius     #

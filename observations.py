@@ -1,6 +1,6 @@
 #*******************************************************************#
 # Ronan Phillips Johns                                              #
-# Last Edited: 19/02/2019                                           #
+# Last Edited: 22/02/2019                                           #
 # observations.py                                                   #
 # This file reads the required information from the MWA internet    #
 # website, and returns this information to userInput.py. The two    #
@@ -28,8 +28,9 @@ def readInternet( minRa, maxRa, minDec, maxDec, minTime, maxTime, duration ):
     except urllib.request.URLError as error:
         print(" URL or network error: %s" % error.reason)
         return
+    #The above code checks for errors
     
-    
+
     return result
 
 
@@ -50,7 +51,8 @@ def readInternetNoTime( minRa, maxRa, minDec, maxDec ):
     except urllib.request.URLError as error:
         print(" URL or network error: %s" % error.reason)
         return
-    
+    #The above code checks for errors
+
     
     return result
 

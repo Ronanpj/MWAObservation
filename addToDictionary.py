@@ -1,6 +1,6 @@
 #*******************************************************************#
 # Ronan Phillips Johns                                              #
-# Last Edited: 19/02/2019                                           #
+# Last Edited: 22/02/2019                                           #
 # addToDictionary.py                                                #
 # This file facilitates the addition of columns to the current      #
 # dictionary of observations                                        #

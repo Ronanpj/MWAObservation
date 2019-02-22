@@ -1,6 +1,6 @@
 #*******************************************************************#
 # Ronan Phillips Johns                                              #
-# Last Edited: 19/02/2019                                           #
+# Last Edited: 22/02/2019                                           #
 # display.py                                                        #
 # This file prints the imported json data into a human readable     #
 # table                                                             #
@@ -24,4 +24,5 @@ def printDataToScreen( data, x, wordList ):
 
 
 def printDataToFile( data, outfile ):    
-    Table.write(data, outfile, overwrite = True)
+    Table.write(data, outfile)
+    #Output to file the astropy table containing all the observation details. The output file type will be determined by the file extension
